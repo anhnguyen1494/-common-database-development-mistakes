@@ -6,31 +6,31 @@ _nguồn https://stackoverflow.com/questions/621884/database-development-mistake
 
 Đây là một cái tương đối đơn giản nhưng vẫn hay xảy xa mọi lúc. Các khóa ngoại nên có chỉ mục trên chúng. Nếu bạn đang sử dụng một trường trong mệnh đề WHERE bạn nên chắc chắn có một chỉ số trong chúng. Các chỉ mục này thường bao gồm nhiều cột dựa trên các truy vấn bạn cần để thực hiện.
 
-**2. Không thực thi toàn vẹn tham chiếu**
+**2. Không thực thi các ràng buộc cho tham chiếu**
 
 Cơ sở dữ liệu của bạn có thể thay đổi ở đây nhưng nếu cơ sở dữ liệu của bạn hỗ trợ tính toàn vẹn tham chiếu - có nghĩa là tất cả các khoá ngoại được đảm bảo để trỏ đến một thực thể tồn tại - bạn nên sử dụng nó
 
-Rất phổ biến để thấy sự thất bại này trên cơ sở dữ liệu MySQL. Tôi không tin rằng MyISAM hỗ trợ nó. Nhưng InnoDB thì có. Bạn sẽ tìm thấy những người đang sử dụng MyISAM hoặc những người đang sử dụng InnoDB nhưng không sử dụng nó anyway.
+Rất phổ biến để thấy sự thất bại này trên cơ sở dữ liệu MySQL. Tôi không tin rằng MyISAM hỗ trợ nó. Nhưng InnoDB thì có. Bạn sẽ tìm thấy những người đang sử dụng MyISAM hoặc những người đang sử dụng InnoDB nhưng không sử dụng nó dù thế nào.
 
 Đọc thêm:
 
-- [How important are constraints like NOT NULL and FOREIGN KEY if I’ll always control my database input with php?](https://stackoverflow.com/questions/382309/how-important-are-constraints-like-not-null-and-foreign-key-if-ill-always-contr)
-- [Are foreign keys really necessary in a database design?](https://stackoverflow.com/questions/18717/are-foreign-keys-really-necessary-in-a-database-design)
-- [Are foreign keys really necessary in a database design?](http://www.diovo.com/2008/08/are-foreign-keys-really-necessary-in-a-database-design/)
+- [Các ràng buộc NOT NULL và FOREIGN KEY quan trọng thế nào nếu bạn luôn luôn kiểm soát dữ liệu đầu vào với PHP?](https://stackoverflow.com/questions/382309/how-important-are-constraints-like-not-null-and-foreign-key-if-ill-always-contr)
+- [Các khoá ngoài có thực sự cần thiết trong một thiết kế cơ sở dữ liệu không?](https://stackoverflow.com/questions/18717/are-foreign-keys-really-necessary-in-a-database-design)
+- [Các khoá ngoài có thực sự cần thiết trong một thiết kế cơ sở dữ liệu không?](http://www.diovo.com/2008/08/are-foreign-keys-really-necessary-in-a-database-design/)
 
 **3. Sử dụng khóa tự nhiên thay vì (kỹ thuật) khóa chính đại diện**
 
-Khóa tự nhiên là các khóa dựa trên các dữ liệu có nghĩa bên ngoài mà (có vẻ) độc nhất. Các ví dụ phổ biến là mã sản phẩm, mã bưu điện gồm hai chữ cái (US), số an sinh xã hội. Các khóa chính thay thế hoặc kỹ thuật chính là những khoá hoàn toàn không có ý nghĩa bên ngoài hệ thống. Chúng được phát minh hoàn toàn để xác định thực thể và thông thường các trường tự động gia tăng (SQL Server, MySQL, và những cái khác) hoặc các chuỗi (nhất là Oracle).
+Khóa tự nhiên là các khóa dựa trên các dữ liệu có nghĩa bên ngoài mà (có vẻ) độc nhất. Các ví dụ phổ biến là mã sản phẩm, mã bưu điện gồm hai chữ cái (US), số an sinh xã hội và vv... . Các khóa chính thay thế hoặc kỹ thuật chính là những khoá hoàn toàn không có ý nghĩa bên ngoài hệ thống. Chúng được phát minh hoàn toàn để xác định thực thể và thông thường các trường tự động tăng (SQL Server, MySQL, và những cái khác) hoặc các chuỗi (nhất là Oracle).
 
-Quan điểm của tôi là bạn nên **luôn** sử dụng khóa chính đại diện. Vấn đề này đã đưa ra trong những câu hỏi sau:
+Quan điểm của tôi là bạn nên **luôn luôn** sử dụng khóa chính đại diện. Vấn đề này đã đưa ra trong những câu hỏi sau:
 
-- [How do you like your primary keys?](https://stackoverflow.com/questions/404040/how-do-you-like-your-primary-keys)
-- [What's the best practice for primary keys in tables?](https://stackoverflow.com/questions/337503/whats-the-best-practice-for-primary-keys-in-tables)
-- [Which format of primary key would you use in this situation.](https://stackoverflow.com/questions/506164/which-format-of-primary-key-would-you-use-in-this-situation)
-- [Surrogate vs. natural/business keys](https://stackoverflow.com/questions/63090/surrogate-vs-natural-business-keys)
-- [Should I have a dedicated primary key field?](https://stackoverflow.com/questions/166750/should-i-have-a-dedicated-primary-key-field)
+- [Bạn thích khóa chính của mình như thế nào?](https://stackoverflow.com/questions/404040/how-do-you-like-your-primary-keys)
+- [Cách luyện tập tốt nhất cho các khóa chính trong các bảng?](https://stackoverflow.com/questions/337503/whats-the-best-practice-for-primary-keys-in-tables)
+- [Bạn sử dụng định dạng khóa chính nào trong trường hợp này.](https://stackoverflow.com/questions/506164/which-format-of-primary-key-would-you-use-in-this-situation)
+- [Khóa đại diên vs khóa tự nhiên/vai trò](https://stackoverflow.com/questions/63090/surrogate-vs-natural-business-keys)
+- [Tôi có nên dành riêng trường khóa chính?](https://stackoverflow.com/questions/166750/should-i-have-a-dedicated-primary-key-field)
 
-Đây là một chủ đề gây nhiều tranh cãi mà bạn sẽ không nhận được thỏa thuận chung. Trong khi bạn có thể tìm thấy một số người, những người nghĩ rằng các khóa tự nhiên trong một số trường hợp OK, bạn sẽ không tìm thấy bất kỳ lời chỉ trích của các khóa đại diện khác hơn là cho là không cần thiết. Đó là một nhược điểm nhỏ nếu bạn hỏi tôi.
+Đây là một chủ đề gây nhiều tranh cãi mà bạn sẽ không nhận được ý kiến chung. Trong khi bạn có thể tìm thấy một số người, những người nghĩ rằng các khóa tự nhiên trong một số trường hợp OK, bạn sẽ không tìm thấy bất kỳ lời chỉ trích của các khóa đại diện khác hơn là cho là không cần thiết. Đó là một nhược điểm nhỏ nếu bạn hỏi tôi.
 
 Hãy nhớ rằng, ngay cả [các quốc gia có thể không còn tồn tại](http://en.wikipedia.org/wiki/ISO_3166-1) (ví dụ, Yugoslavia).
 
@@ -46,7 +46,7 @@ Sẽ mất 1 lúc để đảm bảo bạn không tạo ra các dòng bị trùn
 
 Từ [Tại sao tôi ghét DISTINCT](http://weblogs.sqlteam.com/markc/archive/2008/11/11/60752.aspx):
 
->Trong trường hợp mọi thứ bắt đầu trở nên chua theo quản điểm ​​của tôi là khi một nhà phát triển đang xây dựng truy vấn đáng kể, tham gia các bảng với nhau, và đột nhiên ông nhận ra rằng có vẻ như ông đang nhận được bản sao (hoặc thậm chí nhiều hơn) hàng và phản ứng ngay lập tức của ông "giải pháp" của anh ta đối với "vấn đề" này là ném vào từ khoá DISTINCT và **POOF** tất cả những rắc rối của anh ấy biến mất.
+>Trong trường hợp mọi thứ bắt đầu trở nên tồi tệ theo quan điểm ​​của tôi là khi một nhà phát triển đang xây dựng truy vấn đáng kể, ghép nối các bảng với nhau, và đột nhiên ông nhận ra rằng có vẻ như ông đang nhận sự trùng lặp (hoặc thậm chí nhiều hơn) hàng và phản ứng ngay lập tức của ông "giải pháp" của anh ta đối với "vấn đề" này là ném vào từ khoá DISTINCT và **POOF** tất cả những rắc rối của anh ấy biến mất.
 
 **5. Khuyến khích tập hợp các kết nối**
 
@@ -76,7 +76,7 @@ AND t1.roleid = 1
 
 > Query time: 0.016 s
 
-> Đúng vậy. Phiên bản nối tôi đề xuất **nhanh gấp 2 lần phiên bản nhóm**
+> Đúng vậy. Phiên bản nối tôi đề xuất **nhanh gấp 20 lần phiên bản nhóm**
 
 **6. Không đơn giản hóa các truy vấn phức tạp thông qua các chế độ xem**
 
@@ -94,7 +94,7 @@ Ví dụ:
 - Intel có nhiều luật, 1 trong số chúng là Employer;
 - Intel tuyển Ted, nghĩa là có quan hệ giữa các luật tương ứng của chúng.
 
-Do vậy, có 5 bảng nối để kếtết nối Ted với các nhà tuyển dụng của anh ý.Giả định rằng các nhân viên là Persons(không phải các tổ chức) và cung cấp các view hỗ trợ:
+Do vậy, có 5 bảng nối để kết nối Ted với các nhà tuyển dụng của anh ý.Giả định rằng các nhân viên là Persons(không phải các tổ chức) và cung cấp các view hỗ trợ:
 
 CREATE VIEW vw_employee AS
 SELECT p.title, p.given_names, p.surname, p.date_of_birth, p2.party_name employer_name
